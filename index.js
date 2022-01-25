@@ -46,4 +46,10 @@ function freeze(x) {
   }
 }
 
-module.exports = freeze
+if (typeof module !== "undefined") {
+  module.exports = freeze
+}
+
+if (typeof window !== "undefined") {
+  window.freeze = freeze
+}
