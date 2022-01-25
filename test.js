@@ -44,6 +44,8 @@ test("ensures that one-dimensional arrays are correctly frozen", () => {
   expect(() => {
     x[0]
   }).not.toThrow()
+
+  expect(x).toStrictEqual([2, 3, 4])
 })
 
 test("ensures that two-dimensional arrays are correctly frozen", () => {
@@ -97,6 +99,11 @@ test("ensures that two-dimensional arrays are correctly frozen", () => {
   expect(() => {
     x[0]
   }).not.toThrow()
+
+  expect(x).toStrictEqual([
+    [2, 3, 4],
+    [5, 6, 7],
+  ])
 })
 
 test("ensures that shallow objects are correctly frozen", () => {
@@ -135,6 +142,8 @@ test("ensures that shallow objects are correctly frozen", () => {
   expect(() => {
     x.foo
   }).not.toThrow()
+
+  expect(x).toStrictEqual({ foo: "bar" })
 })
 
 test("ensures that deeply-nested objects are correctly frozen", () => {
@@ -188,4 +197,9 @@ test("ensures that deeply-nested objects are correctly frozen", () => {
   expect(() => {
     x.settings.name.first
   }).not.toThrow()
+
+  expect(x).toStrictEqual({
+    foo: "bar",
+    settings: { name: { first: "James", last: "Bond" } },
+  })
 })
