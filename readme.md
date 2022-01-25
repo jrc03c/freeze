@@ -13,11 +13,11 @@ const freeze = require("@jrc03c/freeze")
 
 const person = freeze({ name: "Alice" })
 person.name = "Bob"
-// Error: This variable is immutable!
+// FrozenObjectAttemptedMutationError: This object is immutable!
 
 const myList = freeze([1, 2, 3])
 myList.push(42)
-// Error: This variable is immutable!
+// FrozenObjectAttemptedMutationError: This object is immutable!
 ```
 
 **Notes:**
