@@ -1,16 +1,10 @@
 function freeze(x) {
   if (typeof x === "object") {
-    if (x instanceof Array) {
-      return Object.freeze(x.map(v => freeze(v)))
-    } else {
-      const out = {}
+    Object.keys(x).forEach(key => {
+      x[key] = freeze(x[key])
+    })
 
-      Object.keys(x).forEach(key => {
-        out[key] = freeze(x[key])
-      })
-
-      return Object.freeze(out)
-    }
+    return Object.freeze(x)
   } else {
     return x
   }

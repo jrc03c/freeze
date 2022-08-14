@@ -188,3 +188,42 @@ test("ensures that deeply-nested objects are correctly frozen", () => {
     settings: { name: { first: "James", last: "Bond" } },
   })
 })
+
+test("ensures that class instances are correctly frozen", () => {
+  class Person {
+    constructor(name, age) {
+      this.name = name
+      this.age = age
+      this.friends = []
+    }
+
+    sayHi() {
+      return `Hi! I'm ${this.name}!`
+    }
+  }
+
+  let a = new Person("Alice", 23)
+  let b = new Person("Bob", 45)
+  let c = new Person("Charlize", 67)
+  a.friends.push(b)
+  a.friends.push(c)
+  a = freeze(a)
+
+  a.name = "Danielle"
+  a.age = 89
+  a.sayHi = () => "Go away!"
+
+  a.friends[0].name = "Eric"
+  a.friends[0].age = 100
+  a.friends[1].sayHi = () => "Please leave me alone."
+  delete a.friends[1].age
+
+  expect(a instanceof Person).toBe(true)
+  expect(a.name).toBe("Alice")
+  expect(a.age).toBe(23)
+  expect(a.sayHi()).toBe("Hi! I'm Alice!")
+  expect(a.friends[0].name).toBe("Bob")
+  expect(a.friends[0].age).toBe(45)
+  expect(a.friends[1].sayHi()).toBe("Hi! I'm Charlize!")
+  expect(a.friends[1].age).toBe(67)
+})
