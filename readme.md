@@ -1,3 +1,7 @@
+> ⚠️ **NOTE:** ⚠️ This project is being merged into a monorepo [here](https://github.com/jrc03c/monorepo/tree/main/packages/freeze). This repo will soon be archived.
+
+---
+
 `freeze` is a little function that returns an immutable copy of a JS object or array.
 
 **Install:**
